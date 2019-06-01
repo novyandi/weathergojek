@@ -10,5 +10,7 @@ data class WeatherResponse(
     @SerializedName("location")
     val location: LocationResponse,
     @SerializedName("current")
-    val currentWeather: CurrentWeatherResponse
+    val currentWeather: CurrentWeatherResponse,
+    @SerializedName("forecast")
+    val forecastWeather: ForecastResponse
 )

@@ -13,4 +13,7 @@ import retrofit2.http.QueryMap
 interface ApiService {
     @GET(ApiRoutes.RESOURCE_CURRENT_V1)
     fun getCurrentWeather(@QueryMap parameter: HashMap<String, Any>): Observable<WeatherResponse>
+
+    @GET(ApiRoutes.RESOURCE_FORECAST_V1)
+    fun getForecastWeather(@QueryMap parameter: HashMap<String, Any>): Observable<WeatherResponse>
 }
