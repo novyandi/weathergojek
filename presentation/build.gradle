@@ -34,6 +34,24 @@ android {
         exclude 'META-INF/rxjava.properties'
     }
 
+    flavorDimensions "default"
+    productFlavors {
+        dev {
+            dimension = "default"
+            applicationId = "${setup.defaultPackageName}.dev"
+            resValue "string", "appname", "${setup.appName}-Dev"
+            buildConfigField "String", "API_URL", '"https://api.apixu.com/"'
+            buildConfigField "String", "API_KEY", '"7065401ba5314155b1551420190106"'
+        }
+        production {
+            dimension = "default"
+            applicationId = "${setup.defaultPackageName}"
+            resValue "string", "appname", "${setup.appName}"
+            buildConfigField "String", "API_URL", '"https://api.apixu.com/"'
+            buildConfigField "String", "API_KEY", '"7065401ba5314155b1551420190106"'
+        }
+    }
+
     android.applicationVariants.all { variant ->
         variant.outputs.all { output ->
             def outputFile = output.outputFile
