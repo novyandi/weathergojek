@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+        <variable
+                name="viewModel"
+                type="com.android.weathergojek.screen.weather.viewModel.WeatherViewModel"/>
+    </data>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".screen.weather.view.WeatherActivity">
+
+        <com.android.weathergojek.screen.component.ProgressView
+                android:layout_width="@dimen/icon_loading_size"
+                android:layout_height="@dimen/icon_loading_size"
+                android:src="@drawable/ic_loading"
+                android:layout_centerInParent="true"
+                android:visibility="@{viewModel.loadingVisibility}"/>
+    </RelativeLayout>
+</layout>
