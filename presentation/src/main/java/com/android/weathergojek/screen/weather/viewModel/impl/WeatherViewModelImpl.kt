@@ -12,6 +12,7 @@ import com.android.weathergojek.domain.usecase.WeatherUseCase
 import com.android.weathergojek.rx.AppScheduler
 import com.android.weathergojek.screen.base.ViewModel
 import com.android.weathergojek.screen.binding.ObservableText
+import com.android.weathergojek.screen.weather.event.WeatherUIEvent
 import com.android.weathergojek.screen.weather.viewModel.ItemWeatherForecastViewModel
 import com.android.weathergojek.screen.weather.viewModel.WeatherViewModel
 import io.reactivex.Completable
@@ -58,6 +59,7 @@ class WeatherViewModelImpl @Inject constructor() : ViewModel, WeatherViewModel {
         errorViewVisibility.set(View.GONE)
         weatherViewVisibility.set(View.VISIBLE)
         loadingVisibility.set(View.GONE)
+        eventBus.post(WeatherUIEvent.OnShowBottomSheet())
     }
 
     fun fetchData() {
