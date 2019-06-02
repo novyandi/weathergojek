@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.android.weathergojek.screen.weather.viewModel.ItemWeatherForecastViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_forecast_size">
+
+        <TextView
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/spacing_16"
+            android:layout_marginLeft="@dimen/spacing_16"
+            android:layout_toStartOf="@id/temperature_text"
+            android:layout_toLeftOf="@id/temperature_text"
+            android:fontFamily="@font/regular"
+            android:textBinding="@{viewModel.dayForecastText}"
+            tools:text="Tuesday" />
+
+        <TextView
+            android:id="@+id/temperature_text"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/spacing_16"
+            android:layout_marginRight="@dimen/spacing_16"
+            android:fontFamily="@font/regular"
+            android:textBinding="@{viewModel.temperatureForecastText}"
+            tools:text="24 C" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_size"
+            android:layout_alignParentBottom="true"
+            android:background="@color/divider" />
+    </RelativeLayout>
+</layout>

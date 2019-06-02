@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -44,7 +45,7 @@
                 android:fontFamily="@font/thin"
                 android:paddingStart="@dimen/spacing_44"
                 android:paddingEnd="@dimen/spacing_44"
-                android:text="@string/main.error.label.text"
+                android:text="@string/main_error_label_text"
                 android:textSize="@dimen/font_54" />
 
             <Button
@@ -55,7 +56,7 @@
                 android:background="@color/background_button_dark"
                 android:fontFamily="@font/regular"
                 android:onClick="@{() -> viewModel.retryClickedButton()}"
-                android:text="@string/main.error.button.text"
+                android:text="@string/main_error_button_text"
                 android:textColor="@color/white" />
         </LinearLayout>
 
@@ -90,6 +91,20 @@
                     android:textSize="@dimen/font_36"
                     tools:text="Jakarta" />
             </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:clipToPadding="true"
+                android:paddingTop="@dimen/spacing_16"
+                app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_forecast"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
         </android.support.design.widget.CoordinatorLayout>
     </RelativeLayout>
 </layout>

@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
     <string name="app_name">weathergojek</string>
-    <string name="main.format.temp_degree">%s°</string>
-    <string name="main.error.label.text">Something when wrong at our end!</string>
-    <string name="main.error.button.text">Retry</string>
+    <string name="main_format_temp_degree">%s°</string>
+    <string name="item_format_temp_degree">%s° C</string>
+    <string name="main_error_label_text">Something when wrong at our end!</string>
+    <string name="main_error_button_text">Retry</string>
 </resources>
