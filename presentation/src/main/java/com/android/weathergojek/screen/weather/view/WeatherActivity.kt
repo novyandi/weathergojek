@@ -1,5 +1,7 @@
 package com.android.weathergojek.screen.weather.view
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
@@ -13,6 +15,15 @@ import com.android.weathergojek.screen.base.BaseActivity
 import com.android.weathergojek.screen.component.RecyclerViewAdapterImpl
 import com.android.weathergojek.screen.weather.event.WeatherUIEvent
 import com.android.weathergojek.screen.weather.viewModel.WeatherViewModel
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.CompositeMultiplePermissionsListener
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.karumi.dexter.listener.multi.SnackbarOnAnyDeniedMultiplePermissionsListener
 import kotlinx.android.synthetic.main.activity_weather.*
 import org.greenrobot.eventbus.Subscribe
 import javax.inject.Inject
@@ -25,10 +36,13 @@ class WeatherActivity : BaseActivity<ActivityWeatherBinding, WeatherViewModel>()
     @Inject
     lateinit var adapterForecast: RecyclerViewAdapterImpl
 
+    private var fusedLocationClient: FusedLocationProviderClient? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appComponent?.inject(this)
         bindContentView(R.layout.activity_weather)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         setupForecastList()
     }
 
@@ -59,5 +73,50 @@ class WeatherActivity : BaseActivity<ActivityWeatherBinding, WeatherViewModel>()
             wm.defaultDisplay.getMetrics(metrics)
             metrics.heightPixels
         } ?: 0
+    }
+
+    @Subscribe
+    fun OnValidatePermission(event: WeatherUIEvent.OnValidatePermission) {
+        val multipleListener = object : MultiplePermissionsListener {
+            override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                if (report.areAllPermissionsGranted())
+                    getMyCurrentLocation()
+                else
+                    viewModel.onPermissionDenied()
+            }
+
+            override fun onPermissionRationaleShouldBeShown(
+                permissions: MutableList<PermissionRequest>,
+                token: PermissionToken
+            ) {
+            }
+        }
+        Dexter.withActivity(this)
+            .withPermissions(
+                arrayListOf(
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            )
+            .withListener(
+                CompositeMultiplePermissionsListener(
+                    multipleListener,
+                    SnackbarOnAnyDeniedMultiplePermissionsListener.Builder.with(
+                        container_main,
+                        R.string.permission_denied_feedback
+                    ).withOpenSettingsButton(R.string.permission_button_settings).build()
+                )
+            )
+            .check()
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getMyCurrentLocation() {
+        fusedLocationClient?.lastLocation?.addOnSuccessListener { location ->
+            if (location != null)
+                viewModel.onLocationChanged(location.latitude, location.longitude)
+            else
+                viewModel.onGetMyCurrentLocationFailed()
+        }
     }
 }

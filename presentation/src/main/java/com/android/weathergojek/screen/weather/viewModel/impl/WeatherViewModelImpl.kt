@@ -10,6 +10,7 @@ import com.android.weathergojek.domain.model.Weather
 import com.android.weathergojek.domain.model.request.WeatherRequest
 import com.android.weathergojek.domain.usecase.WeatherUseCase
 import com.android.weathergojek.rx.AppScheduler
+import com.android.weathergojek.screen.base.BaseUIEvent
 import com.android.weathergojek.screen.base.ViewModel
 import com.android.weathergojek.screen.binding.ObservableText
 import com.android.weathergojek.screen.weather.event.WeatherUIEvent
@@ -38,9 +39,12 @@ class WeatherViewModelImpl @Inject constructor() : ViewModel, WeatherViewModel {
     override val locationWeatherText: ObservableText = ObservableText()
     override val forecastItems: ObservableArrayList<ItemWeatherForecastViewModel> = ObservableArrayList()
 
+    private var latLocation: Double = .0
+    private var longLocation: Double = .0
+
     override fun onViewModelStart() {
         setViewLoading()
-        fetchData()
+        eventBus.post(WeatherUIEvent.OnValidatePermission())
     }
 
     fun setViewLoading() {
@@ -65,8 +69,8 @@ class WeatherViewModelImpl @Inject constructor() : ViewModel, WeatherViewModel {
     fun fetchData() {
         val disposable = weatherUseCase.getForecastWeather(
             WeatherRequest(
-                -6.226834,
-                106.798097,
+                latLocation,
+                longLocation,
                 BuildConfig.API_KEY,
                 5
             )
@@ -101,5 +105,21 @@ class WeatherViewModelImpl @Inject constructor() : ViewModel, WeatherViewModel {
 
     override fun onViewModelDestroy() {
         weatherUseCase.clearDisposable()
+    }
+
+    override fun onPermissionDenied() {
+        setViewFailed()
+        eventBus.post(BaseUIEvent.OnShowToast("", R.string.permission_location_message_denied))
+    }
+
+    override fun onLocationChanged(latLocation: Double, longLocation: Double) {
+        this.latLocation = latLocation
+        this.longLocation = longLocation
+        fetchData()
+    }
+
+    override fun onGetMyCurrentLocationFailed() {
+        setViewFailed()
+        eventBus.post(BaseUIEvent.OnShowToast("", R.string.main_message_turn_on_gps))
     }
 }

@@ -4,4 +4,9 @@
     <string name="item_format_temp_degree">%s° C</string>
     <string name="main_error_label_text">Something when wrong at our end!</string>
     <string name="main_error_button_text">Retry</string>
+    <string name="main_message_turn_on_gps">Gps is required for access this feature, Please turn it on</string>
+
+    <string name="permission_location_message_denied">Location permission is required for access this feature</string>
+    <string name="permission_denied_feedback">Permission Denied</string>
+    <string name="permission_button_settings">Setting</string>
 </resources>

@@ -17,4 +17,7 @@ interface WeatherViewModel : ViewModel {
     val locationWeatherText: ObservableText
     val forecastItems: ObservableArrayList<ItemWeatherForecastViewModel>
     fun retryClickedButton()
+    fun onPermissionDenied()
+    fun onLocationChanged(latLocation: Double, longLocation: Double)
+    fun onGetMyCurrentLocationFailed()
 }

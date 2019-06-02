@@ -38,8 +38,8 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : ViewModel> : AppCompatAct
 
     override fun onStart() {
         super.onStart()
-        viewModel.onViewModelStart()
         registerEventBus()
+        viewModel.onViewModelStart()
     }
 
     override fun onResume() {
