@@ -80,6 +80,13 @@ dependencies {
     testImplementation "io.mockk:mockk:$mockk_version"
     testImplementation "org.amshove.kluent:kluent:$kluent"
 
+    //UNIT TEST LIBRARY
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okhttp3_version"
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+
     //KOTLIN
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
@@ -93,6 +100,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:$google_service_version"
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
 
     //RX ANDROID LIBRARY
     implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"

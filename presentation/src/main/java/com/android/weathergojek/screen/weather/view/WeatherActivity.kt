@@ -32,6 +32,7 @@ import javax.inject.Inject
  * Created by Novyandi N. on 01/06/2019.
  * novyandinurahmad@hotmail.com
  */
+@Suppress("UNUSED_PARAMETER")
 class WeatherActivity : BaseActivity<ActivityWeatherBinding, WeatherViewModel>() {
     @Inject
     lateinit var adapterForecast: RecyclerViewAdapterImpl

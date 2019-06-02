@@ -16,3 +16,7 @@ fun String.formatDate(toFormat: String): String {
     val dateFormatTo = SimpleDateFormat(toFormat, Locale.ENGLISH)
     return dateFormatTo.format(date)
 }
+
+inline fun <T : Any> T?.notNull(f: (it: T) -> Unit) {
+    if(this != null) f(this)
+}

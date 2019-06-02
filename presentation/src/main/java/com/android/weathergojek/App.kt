@@ -53,4 +53,10 @@ class App : Application() {
             .build()
         initAppComponent()
     }
+
+    fun setActivityComponent(component: ActivityComponent){
+        activityComponent = component
+    }
+
+    fun getApplicationComponent() = applicationComponent
 }

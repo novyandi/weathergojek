@@ -17,6 +17,7 @@
         tools:context=".screen.weather.view.WeatherActivity">
 
         <RelativeLayout
+            android:id="@+id/container_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -31,6 +32,7 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/container_error"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/background_error"
@@ -62,6 +64,7 @@
         </LinearLayout>
 
         <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/container_data_weather"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="@{viewModel.weatherViewVisibility}"
