@@ -1,5 +1,6 @@
 package com.android.weathergojek.screen.base
 
+import com.android.weathergojek.rx.AppScheduler
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
@@ -8,17 +9,10 @@ import javax.inject.Inject
  * novyandinurahmad@hotmail.com
  */
 abstract class BaseViewModel<T : ViewModel> : ViewModel {
-
+    @Inject
+    lateinit var appScheduler: AppScheduler
     @Inject
     lateinit var eventBus: EventBus
 
     fun postEvent(event: Any) = eventBus.post(event)
-
-    override fun onViewStart() {
-
-    }
-
-    override fun onViewDestroy() {
-
-    }
 }

@@ -1,6 +1,6 @@
 package com.android.weathergojek.di.component
 
-import com.android.weathergojek.di.module.ApplicationModule
+import com.android.weathergojek.di.module.MiscellaneousModule
 import com.android.weathergojek.di.module.ViewModelModule
 import com.android.weathergojek.di.scope.PerActivity
 import com.android.weathergojek.screen.weather.view.WeatherActivity
@@ -11,7 +11,10 @@ import dagger.Component
  * novyandinurahmad@hotmail.com
  */
 @PerActivity
-@Component(dependencies = [ApplicationComponent::class], modules = [ApplicationModule::class, ViewModelModule::class])
+@Component(
+    dependencies = [ApplicationComponent::class],
+    modules = [ViewModelModule::class, MiscellaneousModule::class]
+)
 interface ActivityComponent {
     fun inject(activity: WeatherActivity)
 }

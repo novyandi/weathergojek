@@ -27,22 +27,18 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : ViewModel> : AppCompatAct
     protected var binding: VB? = null
     protected var appComponent: ActivityComponent? = null
         get() {
-            if (field == null) {
-                App.initAppComponent()
-                field = App.getActivityComponent()
-            }
+            if (field == null) field = App.getActivityComponent()
             return field
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        App.initAppComponent()
         appComponent = App.getActivityComponent()
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel.onViewStart()
+        viewModel.onViewModelStart()
         registerEventBus()
     }
 
@@ -74,11 +70,17 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : ViewModel> : AppCompatAct
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         registerEventBus()
-        supportFragmentManager.fragments.forEach { it.onActivityResult(requestCode, resultCode, data) }
+        supportFragmentManager.fragments.forEach {
+            it.onActivityResult(
+                requestCode,
+                resultCode,
+                data
+            )
+        }
     }
 
     override fun onDestroy() {
-        viewModel.onViewDestroy()
+        viewModel.onViewModelDestroy()
         unregisterEventBus()
         binding = null
         super.onDestroy()

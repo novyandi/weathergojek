@@ -4,7 +4,6 @@ import com.android.weathergojek.rx.AppScheduler
 import com.android.weathergojek.rx.AppSchedulerImpl
 import dagger.Module
 import dagger.Provides
-import org.greenrobot.eventbus.EventBus
 import javax.inject.Singleton
 
 /**
@@ -16,7 +15,4 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun provideAppScheduler(): AppScheduler = AppSchedulerImpl()
-
-    @Provides
-    fun provideEventBus(): EventBus = EventBus.getDefault()
 }

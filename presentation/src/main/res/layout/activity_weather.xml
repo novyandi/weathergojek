@@ -1,23 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
 
         <variable
-                name="viewModel"
-                type="com.android.weathergojek.screen.weather.viewModel.WeatherViewModel"/>
+            name="viewModel"
+            type="com.android.weathergojek.screen.weather.viewModel.WeatherViewModel" />
     </data>
 
     <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".screen.weather.view.WeatherActivity">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screen.weather.view.WeatherActivity">
 
-        <com.android.weathergojek.screen.component.ProgressView
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{viewModel.loadingVisibility}"
+            tools:visibility="visible">
+
+            <com.android.weathergojek.screen.component.ProgressView
                 android:layout_width="@dimen/icon_loading_size"
                 android:layout_height="@dimen/icon_loading_size"
-                android:src="@drawable/ic_loading"
-                android:layout_centerInParent="true"
-                android:visibility="@{viewModel.loadingVisibility}"/>
+                android:src="@drawable/ic_loading" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background_error"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.errorViewVisibility}"
+            tools:visibility="gone">
+
+            <TextView
+                style="@style/TextView.Thin.White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/thin"
+                android:paddingStart="@dimen/spacing_44"
+                android:paddingEnd="@dimen/spacing_44"
+                android:text="@string/main.error.label.text"
+                android:textSize="@dimen/font_54" />
+
+            <Button
+                android:id="@+id/btnRetry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_44"
+                android:background="@color/background_button_dark"
+                android:fontFamily="@font/regular"
+                android:onClick="@{() -> viewModel.retryClickedButton()}"
+                android:text="@string/main.error.button.text"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.weatherViewVisibility}"
+            tools:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/spacing_56"
+                android:paddingBottom="@dimen/spacing_62">
+
+                <TextView
+                    style="@style/TextView.Black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textBinding="@{viewModel.temperatureWeatherText}"
+                    android:textSize="@dimen/font_96"
+                    tools:text="20°" />
+
+                <TextView
+                    style="@style/TextView.Thin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textBinding="@{viewModel.locationWeatherText}"
+                    android:textColor="@color/secondary_text_color"
+                    android:textSize="@dimen/font_36"
+                    tools:text="Jakarta" />
+            </LinearLayout>
+        </android.support.design.widget.CoordinatorLayout>
     </RelativeLayout>
 </layout>

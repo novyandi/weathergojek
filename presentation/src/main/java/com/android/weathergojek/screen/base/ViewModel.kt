@@ -5,6 +5,6 @@ package com.android.weathergojek.screen.base
  * novyandinurahmad@hotmail.com
  */
 interface ViewModel {
-    fun onViewStart()
-    fun onViewDestroy()
+    fun onViewModelStart()
+    fun onViewModelDestroy()
 }

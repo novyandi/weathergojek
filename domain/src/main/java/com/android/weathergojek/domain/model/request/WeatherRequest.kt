@@ -8,7 +8,7 @@ class WeatherRequest(
     val latitude: Double,
     val longitude: Double,
     val apiKey: String,
-    val forecastDays: Int?
+    val forecastDays: Int? = null
 ) {
     companion object {
         const val API_KEY_FIELD = "key"

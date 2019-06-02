@@ -9,6 +9,7 @@ import com.android.weathergojek.di.component.ApplicationComponent
 import com.android.weathergojek.di.component.DaggerActivityComponent
 import com.android.weathergojek.di.component.DaggerApplicationComponent
 import com.android.weathergojek.di.module.ApplicationModule
+import com.android.weathergojek.di.module.MiscellaneousModule
 import com.android.weathergojek.domain.di.UseCaseModule
 
 /**
@@ -19,21 +20,24 @@ class App : Application() {
     private var applicationComponent: ApplicationComponent? = null
     private var activityComponent: ActivityComponent? = null
     private var applicationModule: ApplicationModule? = null
+    private var miscellaneousModule: MiscellaneousModule? = null
 
     companion object {
         private var instance: App? = null
 
-        fun initAppComponent() {
+        private fun initAppComponent() {
             instance?.apply {
                 if (applicationModule == null) applicationModule = ApplicationModule()
+                if (miscellaneousModule == null) miscellaneousModule = MiscellaneousModule()
                 activityComponent = DaggerActivityComponent.builder()
                     .applicationComponent(applicationComponent)
-                    .applicationModule(applicationModule)
+                    .miscellaneousModule(miscellaneousModule)
                     .build()
             }
         }
 
         fun getActivityComponent(): ActivityComponent? {
+            initAppComponent()
             return instance?.activityComponent
         }
     }
